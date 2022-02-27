@@ -50,6 +50,23 @@ timeIt "nimja":
   )
   keep(result)
 
+import nimja
+timeIt "nimja iterator":
+  iterator foo(): string =
+    compileTemplateStr(
+      """
+      <div>
+        {% for i in 1..num%}
+          <li id="item{{i}}"></li>
+        {% endfor %}
+        <span></span>
+      </div>
+      """, iter = true
+    )
+  for str in foo():
+    # stdout.write str
+    keep(str)
+
 include "scf.nimf"
 timeIt "scf":
   var result = scf()
